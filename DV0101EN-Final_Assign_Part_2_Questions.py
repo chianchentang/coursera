@@ -103,20 +103,20 @@ def update_output_container(selected_year, selected_statistics):
 
 #Plot 2 Calculate the average number of vehicles sold by vehicle type       
         # use groupby to create relevant data for plotting
-        average_sales = recession_data.groupby('Vehicle_Type')['Vehicles Registered'].mean().reset_index()                           
+        average_sales = recession_data.groupby('Vehicle_Type')['Automobile_Sales''].mean().reset_index()                           
         R_chart2  = dcc.Graph(
             figure=px.bar(average_sales, 
-            x='Vehicle Type', 
-            y='Vehicles Registered', 
+            x='Vehicle_Type', 
+            y='Automobile_Sales', 
             title='Average Vehicles Sold by Vehicle Type'))
         
 # Plot 3 Pie chart for total expenditure share by vehicle type during recessions
         # use groupby to create relevant data for plotting
-        exp_rec= recession_data.groupby('Vehicle Type')['Expenditure'].sum().reset_index()
+        exp_rec= recession_data.groupby('Vehicle_Type')['Expenditure'].sum().reset_index()
         R_chart3 = dcc.Graph(
             figure=px.pie(exp_rec, 
             values='Expenditure', 
-            names='Vehicle Type', 
+            names='Vehicle_Type', 
             title='Total Expenditure Share by Vehicle Type during Recessions'))
 
 # Plot 4 bar chart for the effect of unemployment rate on vehicle type and sales
