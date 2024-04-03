@@ -103,7 +103,7 @@ def update_output_container(selected_year, selected_statistics):
 
 #Plot 2 Calculate the average number of vehicles sold by vehicle type       
         # use groupby to create relevant data for plotting
-        average_sales = recession_data.groupby('Vehicle_Type')['Automobile_Sales''].mean().reset_index()                           
+        average_sales = recession_data.groupby('Vehicle_Type')['Automobile_Sales'].mean().reset_index()                           
         R_chart2  = dcc.Graph(
             figure=px.bar(average_sales, 
             x='Vehicle_Type', 
