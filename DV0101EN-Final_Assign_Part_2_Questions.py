@@ -32,11 +32,10 @@ year_list = [i for i in range(1980, 2024, 1)]
 #---------------------------------------------------------------------------------------
 # Create the layout of the app
 app.layout = html.Div(
-    children = [html.H1("Automobile Sales Statistics Dashboard", style={'textAlign': 'center', 'color': '#503D36', 'fontSize': 24})]),
+    children = [html.H1("Automobile Sales Statistics Dashboard", style={'textAlign': 'center', 'color': '#503D36', 'fontSize': 24})])
     #TASK 2.1 Add title to the dashboard
 #May include style for title
-#TASK 2.2: Add two dropdown menus
-html.Div([
+html.Div([#TASK 2.2: Add two dropdown menus
         html.Label("Select Statistics:"),
         dcc.Dropdown(id='dropdown-statistics',
                         options=[
@@ -65,11 +64,11 @@ html.Div([#TASK 2.3: Add a division for output display
 #TASK 2.4: Creating Callbacks
 # Define the callback function to update the input container based on the selected statistics
 @app.callback(
-    Output(component_id='select year', component_property='disabled'),
-    Input(component_id='dropdown_statistics',component_property='value'))
+    Output(component_id='select-year', component_property='disabled'),
+    Input(component_id='dropdown-statistics',component_property='value'))
 
-def update_input_container(dropdown_statistics):
-    if dropdown_statistics =='Yearly Statistics': 
+def update_input_container(dropdown-statistics):
+    if dropdown-statistics =='Yearly Statistics': 
         return False
     else: 
         return True
@@ -78,7 +77,7 @@ def update_input_container(dropdown_statistics):
 # Define the callback function to update the input container based on the selected statistics
 @app.callback(
     Output(component_id='output-container', component_property='children'),
-    [Input(component_id='select-year', component_property='value'), Input(component_id='dropdown_statistics', component_property='value')])
+    [Input(component_id='select-year', component_property='value'), Input(component_id='dropdown-statistics', component_property='value')])
 
 
 def update_output_container(selected_year, selected_statistics):
@@ -112,10 +111,10 @@ def update_output_container(selected_year, selected_statistics):
         
 # Plot 3 Pie chart for total expenditure share by vehicle type during recessions
         # use groupby to create relevant data for plotting
-        exp_rec= recession_data.groupby('Vehicle_Type')['Expenditure'].sum().reset_index()
+        exp_rec= recession_data.groupby('Vehicle_Type')['Advertising_Expenditure'].sum().reset_index()
         R_chart3 = dcc.Graph(
             figure=px.pie(exp_rec, 
-            values='Expenditure', 
+            values='Advertising_Expenditure', 
             names='Vehicle_Type', 
             title='Total Expenditure Share by Vehicle Type during Recessions'))
 
