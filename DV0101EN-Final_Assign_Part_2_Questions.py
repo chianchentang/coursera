@@ -74,7 +74,7 @@ def update_input_container(selected_statistics):
     [Input(component_id='dropdown-statistics', component_property='value'), Input(component_id='select-year', component_property='value')])
 
 
-def update_output_container(selected_year, selected_statistics):
+def update_output_container(selected_statistics, input_year):
     if selected_statistics == 'Recession Period Statistics':
         # Filter the data for recession periods
         recession_data = data[data['Recession'] == 1]
@@ -88,7 +88,7 @@ def update_output_container(selected_year, selected_statistics):
         R_chart1 = dcc.Graph(
             figure=px.line(yearly_rec, 
                 x='Year',
-                y='Automobile Sales',
+                y='Automobile_Sales',
                 title="Average Automobile Sales fluctuation over Recession Period"))
 
 #Plot 2 Calculate the average number of vehicles sold by vehicle type       
@@ -110,12 +110,12 @@ def update_output_container(selected_year, selected_statistics):
             title='Total Advertising Expenditure Share of Vehicle Type during Recessions'))
 
 # Plot 4 bar chart for the effect of unemployment rate on vehicle type and sales
-        unemp_data= recession_data.groupby('Vehicle_Type','Unemployment_Rate')['Automobile_Sales'].mean().reset_index()
+        unemp_data= recession_data.groupby('Vehicle_Type','unemployment_rate')['Automobile_Sales'].mean().reset_index()
         R_chart4 = dcc.Graph(
             figure=px.bar(unemp_data,
-            x='Vehicle_Type',
+            x='unemployment_rate',
             y='Automobile_Sales',
-            color='Unemployment_Rate',
+            color='Vehicle_Type',
             labels={'unemployment_rate': 'Unemployment Rate', 'Automobile_Sales': 'Average Automobile Sales'},
             title="Effect of Unemployment Rate on Sales of various Vehicle Types")
         )
@@ -127,8 +127,8 @@ def update_output_container(selected_year, selected_statistics):
 
 # TASK 2.6: Create and display graphs for Yearly Report Statistics
  # Yearly Statistic Report Plots                             
-    elif (selected_year and selected_statistics=='Yearly Statistics') :
-        yearly_data = data[data['Year'] == selected_year]
+    elif (input_year and selected_statistics=='Yearly Statistics') :
+        yearly_data = data[data['Year'] == input_year]
                               
                               
 #plot 1 Yearly Automobile sales using line chart for the whole period.
